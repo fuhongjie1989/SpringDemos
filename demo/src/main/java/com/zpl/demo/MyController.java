@@ -8,6 +8,6 @@ public class MyController {
 	@RequestMapping("login")
 	public String sayHello(){
 		System.out.println("12345");
-		return "张三";
+		return "张三ddd";
 	}
 }
