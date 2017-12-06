@@ -28,19 +28,19 @@ public class Sm_UserDao extends AbsDaoImp {
 	@Override
 	public List<String> getBaseColums() {
 		// TODO Auto-generated method stub
-		return this.baseColums;
+		return Sm_UserDao.baseColums;
 	}
 
 	@Override
 	public List<String> getNewColums() {
 		// TODO Auto-generated method stub
-		return this.newColums;
+		return Sm_UserDao.newColums;
 	}
 
 	@Override
 	public String getTableName() {
 		// TODO Auto-generated method stub
-		return this.tableName;
+		return Sm_UserDao.tableName;
 	}
 
 }
