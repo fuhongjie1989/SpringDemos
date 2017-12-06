@@ -27,6 +27,10 @@ public abstract class AbsDaoImp implements IDao {
 		QuerySqlInfo sqlInfo = getQueryInfo();
 		return handler.query(sqlInfo);
 	}
+	
+	public Map<String, Object> queryByCondition(QuerySqlInfo info){
+		return handler.queryByCondition(info);
+	}
 
 	/**
 	 * 目前是简单的查询所有的不需要写SQL

@@ -9,6 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.zpl.dao.callback.RowMapResult;
+
+/**
+ * 
+ * @author zhangpengliang
+ *
+ */
 @Component("QuerySqlHandler")
 public class QuerySqlHandler {
 	@Autowired
@@ -30,6 +36,20 @@ public class QuerySqlHandler {
 		if(null==result||result.isEmpty()){
 			return null;
 		}
+		return result.get(0);
+	}
+	
+	
+	public Map<String, Object> queryByCondition(QuerySqlInfo info){
+		String sql=info.getSql();
+		if(null==sql||sql.equals("")){
+			System.out.println("SQL拼接报错。。。");
+			return null;
+		}
+		Object [] param=info.getValues().toArray();
+		List<Map<String, Object>> result=jdbcTemplate.query(sql, param, new RowMapResult());
+		if(null==result)
+			return null;
 		return result.get(0);
 	}
 	

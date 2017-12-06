@@ -1,13 +1,19 @@
 package com.zpl.dao;
 
 import java.util.Map;
-
+/**
+ * 
+ * @author zhangpengliang
+ *
+ */
 public interface IDao {
 	/**
 	 * 查询库表中的第一条数据
 	 * @return
 	 */
 	public Map<String, Object> query();
+	
+	public Map<String, Object> queryByCondition(QuerySqlInfo info);
 	/**
 	 * 查询数据库表中的所有数据
 	 * @return

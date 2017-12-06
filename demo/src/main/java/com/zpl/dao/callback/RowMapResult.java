@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.jdbc.core.RowMapper;
-
+/**
+ * 行回调
+ * @author zhangpengliang
+ *
+ */
 public class RowMapResult implements RowMapper<Map<String, Object>>{
 
 	@Override

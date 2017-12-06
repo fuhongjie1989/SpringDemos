@@ -1,7 +1,12 @@
 package com.zpl.dao;
 
+import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 
+ * @author zhangpengliang
+ *
+ */
 public class QuerySqlInfo implements ISqlInfo {
 
 	private String sql;
@@ -9,6 +14,22 @@ public class QuerySqlInfo implements ISqlInfo {
 	private List<String> columsFields;
 
 	private String tableName;
+	
+	private List<Object> values;
+
+	public void add(Object v){
+		if(null==values){
+			values=new ArrayList<Object>();
+		}
+		values.add(v);
+	}
+	
+	
+	
+	public List<Object> getValues() {
+		return values;
+	}
+
 
 
 	public List<String> getColumsFields() {
