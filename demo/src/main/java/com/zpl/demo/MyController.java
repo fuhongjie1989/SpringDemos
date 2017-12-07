@@ -23,8 +23,10 @@ public class MyController {
 	
 	@RequestMapping("login")
 	public String sayHello(){
-		System.out.println("12345");
-		logger.info("这是我得到的信息");
+		dao.addEq("recid", "40DB0F880BBC65DCC0CDF987EAD43DBA");
+		dao.add("name", "老子");
+		dao.add("title", "开始");
+		dao.update();
 		return "张三ddd";
 	}
 	/*@RequestMapping("/fetch")
@@ -60,6 +62,8 @@ public class MyController {
 		}else if(obj instanceof Byte){
 			System.out.println(2);
 		}
+		dao.addEq("recid",obj);
+		//dao.delete();
 		System.out.println(map.size());
 	}
 }

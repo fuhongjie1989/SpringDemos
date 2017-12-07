@@ -11,19 +11,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import com.zpl.dao.callback.RowMapResult;
+import com.zpl.logs.LogUtil;
 
 /**
  * 
  * @author zhangpengliang
  *
  */
-@Component("QuerySqlHandler")
-public class QuerySqlHandler {
+@Component("SqlHandler")
+public class SqlHandler {
 	@Autowired
 	@Qualifier("defaultJdbcTemplate")
 	private JdbcTemplate jdbcTemplate;
@@ -32,8 +35,9 @@ public class QuerySqlHandler {
 	 * @param info
 	 * @return
 	 */
-	public Map<String, Object> query(QuerySqlInfo info){
+	public Map<String, Object> query(SqlInfo info){
 		String sql=info.getSql();
+		LogUtil.info(sql);
 		List<Map<String, Object>> result=null;
 		if(null==sql||sql.equals("")){
 			System.out.println("SQL拼接报错。。。");
@@ -55,8 +59,9 @@ public class QuerySqlHandler {
 	 * @param info
 	 * @return
 	 */
-	public Map<String, Object> queryByCondition(QuerySqlInfo info){
+	public Map<String, Object> queryByCondition(SqlInfo info){
 		String sql=info.getSql();
+		LogUtil.info(sql);
 		if(null==sql||sql.equals("")){
 			System.out.println("SQL拼接报错。。。");
 			return null;
@@ -67,6 +72,70 @@ public class QuerySqlHandler {
 			return null;
 		return result.get(0);
 	}
+	/**
+	 * 获取到所有的查询结果
+	 * @param info
+	 * @return
+	 */
+	public List<Map<String, Object>> queryList(SqlInfo info){
+		String sql=info.getSql();
+		LogUtil.info(sql);
+		Object [] param=info.getValues().toArray();
+		List<Map<String, Object>> result=jdbcTemplate.query(sql, param, new RowMapResult());
+		if(null==result)
+			return null;
+		return result;
+	}
+	/**
+	 * 插入操作
+	 */
+	public void insert(SqlInfo info){
+		info.insertSqlSpell();
+		String sql=info.getSql();
+		LogUtil.info(sql);
+		jdbcTemplate.update(sql, info.getValues().toArray());
+	}
+	
+	/**
+	 * 更新操作
+	 * @param info
+	 */
+	public void update(SqlInfo info){
+		info.UpdateSqlSpell();
+		String sql=info.getSql();
+		final List<Object> v=info.getValues();
+		LogUtil.info(sql);
+		jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				for(int i=0;i<v.size();i++){
+					ps.setObject(i+1, v.get(i));
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 更新操作
+	 * @param info
+	 */
+	public void delete(SqlInfo info){
+		info.deleteSqlSpell();
+		String sql=info.getSql();
+		final List<Object> v=info.getValues();
+		LogUtil.info(sql);
+		jdbcTemplate.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				for(int i=0;i<v.size();i++){
+					ps.setObject(i+1, v.get(i));
+				}
+			}
+		});
+	}
+	
 	
 	public void querys(){
 		jdbcTemplate.query(new PreparedStatementCreator() {

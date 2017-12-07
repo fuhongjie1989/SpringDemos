@@ -17,33 +17,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public abstract class AbsDaoImp implements IDao {
 	@Autowired
-	@Qualifier("QuerySqlHandler")
-	private QuerySqlHandler handler;
+	@Qualifier("SqlHandler")
+	private SqlHandler handler;
 
+	private SqlInfo sqlInfo=new SqlInfo();
+	
 	/**
 	 * 查询一条数据
 	 */
 	public Map<String, Object> query() {
-		QuerySqlInfo sqlInfo = getQueryInfo();
+		getQueryInfo();
+		sqlInfo.createSqlByAllInfos();
 		return handler.query(sqlInfo);
 	}
 	
-	public Map<String, Object> queryByCondition(QuerySqlInfo info){
+	public Map<String, Object> queryByCondition(SqlInfo info){
 		return handler.queryByCondition(info);
 	}
 
-	public void insert(){
-		
-	}
-	
-	
 	/**
-	 * 目前是简单的查询所有的不需要写SQL
-	 * 
-	 * @return
+	 * 插入
 	 */
-	private QuerySqlInfo getQueryInfo() {
-		QuerySqlInfo info = new QuerySqlInfo();
+	public void insert(SqlInfo info){
 		List<String> columsFields = new ArrayList<String>();
 		if (null != this.getBaseColums()) {
 			columsFields.addAll(this.getBaseColums());
@@ -53,10 +48,48 @@ public abstract class AbsDaoImp implements IDao {
 		}
 		info.setColumsFields(columsFields);
 		info.setTableName(this.getTableName());
-		info.createSqlByAllInfos();
-		return info;
+		handler.insert(info);
 	}
-
+	
+	/**
+	 * 删除操作
+	 */
+	public void delete(){
+		getQueryInfo();
+		handler.delete(sqlInfo);
+	}
+	
+	
+	public void update(){
+		getQueryInfo();
+		handler.update(sqlInfo);
+	}
+	
+	public void addEq(String key,Object value){
+		sqlInfo.addEq(key, value);
+	}
+	
+	public void add(String key,Object value){
+		sqlInfo.add(key, value);
+	}
+	
+	/**
+	 * 目前是简单的查询所有的不需要写SQL
+	 * 
+	 * @return
+	 */
+	private void getQueryInfo() {
+		List<String> columsFields = new ArrayList<String>();
+		if (null != this.getBaseColums()) {
+			columsFields.addAll(this.getBaseColums());
+		}
+		if (null != this.getNewColums()) {
+			columsFields.addAll(this.getNewColums());
+		}
+		sqlInfo.setColumsFields(columsFields);
+		sqlInfo.setTableName(this.getTableName());
+	}
+	
 	/**
 	 * 获取该表的基本列
 	 * 

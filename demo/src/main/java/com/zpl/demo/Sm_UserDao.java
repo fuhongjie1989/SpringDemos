@@ -43,4 +43,5 @@ public class Sm_UserDao extends AbsDaoImp {
 		return Sm_UserDao.tableName;
 	}
 
+
 }

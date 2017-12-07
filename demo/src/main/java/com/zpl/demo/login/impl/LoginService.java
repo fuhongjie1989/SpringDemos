@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.zpl.dao.IDao;
-import com.zpl.dao.QuerySqlInfo;
+import com.zpl.dao.SqlInfo;
 import com.zpl.demo.login.ILogin;
 @Service
 public class LoginService implements ILogin {
@@ -17,7 +17,7 @@ public class LoginService implements ILogin {
 	@Override
 	public Map<String, Object> login(String name) {
 		String sql ="select t.* from sm_user t where t.name=?";
-		QuerySqlInfo info=new QuerySqlInfo();
+		SqlInfo info=new SqlInfo();
 		info.setSql(sql);
 		info.add(name);
 		return userDao.queryByCondition(info);
