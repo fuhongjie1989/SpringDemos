@@ -12,8 +12,15 @@ public interface IDao {
 	 * @return
 	 */
 	public Map<String, Object> query();
-	
+	/**
+	 * 根据条件查询
+	 * @param info
+	 * @return
+	 */
 	public Map<String, Object> queryByCondition(QuerySqlInfo info);
+	
+	public void insert();
+	
 	/**
 	 * 查询数据库表中的所有数据
 	 * @return

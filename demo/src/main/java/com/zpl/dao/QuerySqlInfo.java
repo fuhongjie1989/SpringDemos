@@ -14,7 +14,9 @@ public class QuerySqlInfo implements ISqlInfo {
 	private List<String> columsFields;
 
 	private String tableName;
-	
+	/**
+	 * 参数列表
+	 */
 	private List<Object> values;
 
 	public void add(Object v){

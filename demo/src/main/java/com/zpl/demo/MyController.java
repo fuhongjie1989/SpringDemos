@@ -2,6 +2,9 @@ package com.zpl.demo;
 
 
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import com.zpl.dao.IDao;
 
 @Controller
 public class MyController {
+	private static final Logger logger=LoggerFactory.getLogger(MyController.class);
 	@Autowired
 	@Qualifier("Sm_UserDao")
 	private IDao dao;
@@ -20,6 +24,7 @@ public class MyController {
 	@RequestMapping("login")
 	public String sayHello(){
 		System.out.println("12345");
+		logger.info("这是我得到的信息");
 		return "张三ddd";
 	}
 	/*@RequestMapping("/fetch")

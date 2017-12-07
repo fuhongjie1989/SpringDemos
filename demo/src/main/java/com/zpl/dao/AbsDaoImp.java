@@ -32,6 +32,11 @@ public abstract class AbsDaoImp implements IDao {
 		return handler.queryByCondition(info);
 	}
 
+	public void insert(){
+		
+	}
+	
+	
 	/**
 	 * 目前是简单的查询所有的不需要写SQL
 	 * 
