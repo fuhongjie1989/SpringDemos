@@ -2,14 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
             http://www.springframework.org/schema/beans/spring-beans.xsd  
             http://www.springframework.org/schema/mvc  
             http://www.springframework.org/schema/mvc/spring-mvc.xsd  
             http://www.springframework.org/schema/context  
-            http://www.springframework.org/schema/context/spring-context.xsd"
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://code.alibabatech.com/schema/dubbo 
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
 	default-lazy-init="true">
-
+	<!-- xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" 是dubbo标签引用需要的↑↑↑↑↑↑ -->
 	<!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->
 	<!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
 	<mvc:resources location="/*.html" mapping="/**.html" />
@@ -52,5 +55,15 @@
 		</property>
 	</bean>
 	<!-- 定义默认的jdbc模板结束 -->
+	
+	<dubbo:application name="demo-provider"/><!-- 用于配置当前应用信息，不管该应用是提供者还是消费者 -->
+   <!--  <dubbo:registry address="multicast://224.5.6.7:1234"/>注册中心配置 -->
+   <!-- 使用zookeeper注册中心暴露服务地址  即zookeeper的所在服务器ip地址和端口号 -->
+   <dubbo:registry address="zookeeper://10.1.33.10:2181"/>
+   <!-- 用dubbo协议在20880端口暴露服务 --> 
+    <dubbo:protocol name="dubbo" port="20880"/><!-- 用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受 -->
+    <dubbo:service interface="com.zpl.dubbo.IDubboProviderService" ref="demoService"/>
+	
+	
 
 </beans> 
