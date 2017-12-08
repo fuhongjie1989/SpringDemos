@@ -55,7 +55,7 @@ public class CacheManage {
 	 * @return
 	 */
 	public static Object get(String key){
-		return CacheManage.get(key);
+		return CacheManage.cache.get(key);
 	}
 	/**
 	 * 获取key对应的值，并转换为指定类型
