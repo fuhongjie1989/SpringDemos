@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zpl.cache.CacheManage;
 import com.zpl.dao.IDao;
 
 @Controller
@@ -28,6 +30,11 @@ public class MyController {
 		dao.add("title", "开始");
 		dao.update();
 		return "张三ddd";
+	}
+	@RequestMapping("abc")
+	public void huancuan(){
+		CacheManage.put("key","dsfdsds");
+		System.out.println(CacheManage.get("key"));
 	}
 	/*@RequestMapping("/fetch")
 	public List<String> getList(){

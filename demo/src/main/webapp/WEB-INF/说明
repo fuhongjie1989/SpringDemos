@@ -1,0 +1,2 @@
+这里的dispatcher-servlet.xml 用于Tomcat启动使用
+上面的spring-servlet.xml用于测试用

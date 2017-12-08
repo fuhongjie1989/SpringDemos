@@ -107,8 +107,8 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.25</version>
 		</dependency>
-		<!--↑↑↑ ============== log end ============== ↑↑↑-->
-		<!-- ↓↓↓发送日志到邮箱依赖 ↓↓↓-->
+		<!--↑↑↑ ============== log end ============== ↑↑↑ -->
+		<!-- ↓↓↓发送日志到邮箱依赖 ↓↓↓ -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -119,15 +119,15 @@
 			<artifactId>activation</artifactId>
 			<version>1.1</version>
 		</dependency>
-		<!-- ↑↑↑发送日志到邮箱依赖 ↑↑↑-->
-		<!-- ↓↓↓阿里dubbo依赖start ↓↓↓-->
+		<!-- ↑↑↑发送日志到邮箱依赖 ↑↑↑ -->
+		<!-- ↓↓↓阿里dubbo依赖start ↓↓↓ -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
 			<version>2.5.7</version>
 		</dependency>
-		<!-- ↑↑↑阿里dubbo依赖end ↑↑↑-->
-		<!-- ↓↓↓↓zookeeper 开始↓↓↓↓-->
+		<!-- ↑↑↑阿里dubbo依赖end ↑↑↑ -->
+		<!-- ↓↓↓↓zookeeper 开始↓↓↓↓ -->
 		<dependency>
 			<groupId>com.101tec</groupId>
 			<artifactId>zkclient</artifactId>
@@ -152,7 +152,20 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- ↑↑↑↑zookeeper 开始↑↑↑↑-->
+		<!-- ↑↑↑↑zookeeper 开始↑↑↑↑ -->
+		<!-- redis 依赖开始 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.6.1.RELEASE</version>
+		</dependency>
+		
+		<!-- redis 依赖结束 -->
 	</dependencies>
 	<build>
 		<finalName>demo</finalName>

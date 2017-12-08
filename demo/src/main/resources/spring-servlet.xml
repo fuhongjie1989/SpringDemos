@@ -23,7 +23,7 @@
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />
 	<!-- 默认扫描的包路径 -->
-	<context:component-scan base-package="com.zpl" />
+	<context:component-scan base-package="com.zpl.*" />
 	<!--我们需要引入配置文件,通过下面来引入指定文件 <context:property-placeholder>标签提供了一种优雅的外在化参数配置的方式， 
 		不过该标签在Spring配置文件中只能存在一份！！！ -->
 	<context:property-placeholder location="classpath*:config/*.properties" />
@@ -55,9 +55,8 @@
 		</property>
 	</bean>
 	<!-- 定义默认的jdbc模板结束 -->
-	<!-- 
 	
-	<dubbo:application name="demo-provider"/>用于配置当前应用信息，不管该应用是提供者还是消费者
+	<!-- <dubbo:application name="demo-provider"/>用于配置当前应用信息，不管该应用是提供者还是消费者
     <dubbo:registry address="multicast://224.5.6.7:1234"/>注册中心配置
    使用zookeeper注册中心暴露服务地址  即zookeeper的所在服务器ip地址和端口号
    <dubbo:registry address="zookeeper://10.1.33.10:2181"/>
