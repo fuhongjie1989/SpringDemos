@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zpl.cache.CacheManage;
 import com.zpl.dao.IDao;
@@ -73,4 +75,20 @@ public class MyController {
 		//dao.delete();
 		System.out.println(map.size());
 	}
+	
+	/*****************开始了解@Controller和@RequestMapping*************************/
+	/*@RequestMapping("user/${userId}")
+	public ModelAndView showDetail(@PathVariable("userId") String id){
+		System.out.println(id);
+		return null;
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
