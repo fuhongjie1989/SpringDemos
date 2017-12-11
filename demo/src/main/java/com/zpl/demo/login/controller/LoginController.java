@@ -55,7 +55,7 @@ public class LoginController extends BaseController{
 		}
 	}
 	
-	@RequestMapping("loginOn")
+	@RequestMapping("loginOn.do")
 	public ModelAndView loginOn(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		Map<String, Object> param=this.getRequestMap(request);
 		ReturnMsg msg=new ReturnMsg();

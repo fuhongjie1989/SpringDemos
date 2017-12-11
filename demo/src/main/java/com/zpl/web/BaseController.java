@@ -1,6 +1,8 @@
 package com.zpl.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zpl.logs.LogUtil;
+import com.zpl.msg.MsgInfo;
 import com.zpl.msg.ReturnMsg;
 import com.zpl.util.json.JSONUtil;
 import com.zpl.util.request.RequestUtil;
@@ -86,13 +89,22 @@ public class BaseController {
 		Map<String, Object> _retMap = new HashMap<String, Object>();
 		if (returnMsg.isSuccess()) {// 成功信息
 			_retMap.put("flag", "success");
-			_retMap.put("msg", "成功");
+			_retMap.put("msg", initMsgArray(returnMsg.getMsgList()));
 		}
 		if (!returnMsg.isSuccess()) {// 失败信息
 			_retMap.put("flag", "fail");
-			_retMap.put("msg", "执行失败");
+			_retMap.put("msg", initMsgArray(returnMsg.getErrorList()));
 		}
 		return _retMap;
 	}
 	
+	private static List<Map<String, Object>> initMsgArray(List<MsgInfo> list) {
+		List<Map<String, Object>> msgList = new ArrayList<Map<String, Object>>();
+		for (MsgInfo msg : list) {
+			Map<String, Object> aMsg = new HashMap<String, Object>();
+			aMsg.put(msg.getCode(), msg.getInfo());
+			msgList.add(aMsg);
+		}
+		return msgList;
+	}
 }
