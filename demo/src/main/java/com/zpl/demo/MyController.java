@@ -38,28 +38,7 @@ public class MyController {
 		CacheManage.put("key","dsfdsds");
 		System.out.println(CacheManage.get("key"));
 	}
-	/*@RequestMapping("/fetch")
-	public List<String> getList(){
-		List<String> list=new ArrayList<String>();
-		String sql="select t.name from sm_user t";
-		jdbcTemplate.query(sql, new RowCallbackHandler() {
-			
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				while(rs.next()){
-					System.out.println(rs.getString(1));
-					ResultSetMetaData rsmd=rs.getMetaData();
-					System.out.println(rsmd.getColumnCount());
-					System.out.println(rsmd.getColumnLabel(1));
-					System.out.println(rsmd.getColumnType(1));
-					System.out.println(Types.VARCHAR);
-					System.out.println(rsmd.getColumnName(1));
-				}
-			}
-		});
-		return list;
-		
-	}*/
+
 	
 	@RequestMapping("getData")
 	public void getdata(){
