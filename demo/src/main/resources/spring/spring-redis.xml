@@ -30,7 +30,7 @@
 		<!-- 服务端口 -->
 		<property name="port" value="${redis.port}"></property>
 		<!-- 授权密码 -->
-		<property name="password" value="${redis.password}"></property>
+		<property name="password" value=""></property>
 		<!-- 超时时间：单位ms -->
 		<property name="timeout" value="${redis.timeout}"></property>
 		<!--启用用户线程池 -->

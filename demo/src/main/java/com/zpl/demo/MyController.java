@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zpl.cache.CacheManage;
 import com.zpl.dao.IDao;
@@ -36,28 +38,7 @@ public class MyController {
 		CacheManage.put("key","dsfdsds");
 		System.out.println(CacheManage.get("key"));
 	}
-	/*@RequestMapping("/fetch")
-	public List<String> getList(){
-		List<String> list=new ArrayList<String>();
-		String sql="select t.name from sm_user t";
-		jdbcTemplate.query(sql, new RowCallbackHandler() {
-			
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				while(rs.next()){
-					System.out.println(rs.getString(1));
-					ResultSetMetaData rsmd=rs.getMetaData();
-					System.out.println(rsmd.getColumnCount());
-					System.out.println(rsmd.getColumnLabel(1));
-					System.out.println(rsmd.getColumnType(1));
-					System.out.println(Types.VARCHAR);
-					System.out.println(rsmd.getColumnName(1));
-				}
-			}
-		});
-		return list;
-		
-	}*/
+
 	
 	@RequestMapping("getData")
 	public void getdata(){
@@ -73,4 +54,20 @@ public class MyController {
 		//dao.delete();
 		System.out.println(map.size());
 	}
+	
+	/*****************开始了解@Controller和@RequestMapping*************************/
+	/*@RequestMapping("user/${userId}")
+	public ModelAndView showDetail(@PathVariable("userId") String id){
+		System.out.println(id);
+		return null;
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

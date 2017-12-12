@@ -11,9 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zpl.demo.login.ILogin;
+import com.zpl.msg.ReturnMsg;
+import com.zpl.web.BaseController;
 
 /**
  * 登录controller
@@ -22,7 +26,7 @@ import com.zpl.demo.login.ILogin;
  */
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 	@Autowired
 	private ILogin login;
 	private static final Logger logger=LoggerFactory.getLogger("LoginController");
@@ -49,5 +53,14 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("loginOn.do")
+	public ModelAndView loginOn(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		Map<String, Object> param=this.getRequestMap(request);
+		ReturnMsg msg=new ReturnMsg();
+		msg.getDatatable().put("A", "username");
+		msg.getDatatable().put("B", "password");
+		return return2page(response,msg, "index");
 	}
 }
