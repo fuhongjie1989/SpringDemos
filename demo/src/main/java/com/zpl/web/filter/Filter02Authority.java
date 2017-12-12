@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.zpl.context.intf.User;
 import com.zpl.logs.LogUtil;
 import com.zpl.msg.ReturnMsg;
 import com.zpl.util.string.StrUtil;
@@ -31,7 +32,7 @@ public class Filter02Authority implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		String userSession=(String) ((HttpServletRequest)request).getSession().getAttribute("UserAuthority");
+		String userSession=((User)((HttpServletRequest)request).getSession().getAttribute("UserAuthority")).getSessionId();
 		String reqeustSession=((HttpServletRequest)request).getSession().getId();
 		/**
 		 * 为null说明用户信息不全

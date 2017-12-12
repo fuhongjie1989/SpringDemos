@@ -28,6 +28,13 @@
 		不过该标签在Spring配置文件中只能存在一份！！！ -->
 	<context:property-placeholder location="classpath*:config/*.properties" />
 	<!-- mvc:view-controller可以在不需要Controller处理request的情况，转向到设置的View -->
+	
+	<!-- ↓↓↓↓Excel 视图解析器 ↓↓↓↓ -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="10"></bean>
+	<!-- ↑↑↑↑Excel 视图解析器 ↑↑↑↑ -->
+	
+	
 	<!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为/index.jsp -->
 	<mvc:view-controller path="/" view-name="index" />
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -37,8 +44,28 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<!-- 配置URl后缀 -->
 		<property name="suffix" value=".jsp"></property>
+		<property name="order" value="0"></property>
 	</bean>
-
+	<!-- ↓↓↓↓FreeMarker 视图解析器 ↓↓↓↓ -->
+	<bean
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+		p:templateLoaderPath="/WEB-INF/ftl/">
+		<property name="freemarkerSettings">
+			<props>
+				<!-- classic_compatible设置为true当碰到null时直接返回一个空白字符串，false时遇到null会抛出异常 -->
+				<prop key="classic_compatible">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="order" value="5"></property>
+		<!-- 配置ftl路径前缀 -->
+		<property name="suffix" value=".ftl"></property>
+		<property name="contentType" value="text/html;charset=utf-8"></property>
+	</bean>
+	<!-- ↑↑↑↑FreeMarker 视图解析器 ↑↑↑↑ -->
+	
 	<!-- 指定数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
