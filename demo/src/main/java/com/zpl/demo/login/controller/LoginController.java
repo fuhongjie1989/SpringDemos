@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
 	@Autowired
 	private ILogin login;
 	private static final Logger logger = LoggerFactory.getLogger("LoginController");
-
+	
 	@RequestMapping("login.do")
 	public void getLoginInfo(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = login.login("SAD_S0DQ37070517");
