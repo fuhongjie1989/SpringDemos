@@ -22,6 +22,7 @@ import com.zpl.demo.login.ILogin;
 import com.zpl.demo.login.pojo.Role;
 import com.zpl.excel.MyExcelView;
 import com.zpl.msg.ReturnMsg;
+import com.zpl.util.json.JSONUtil;
 import com.zpl.uuid.UniqueSeq;
 import com.zpl.web.BaseController;
 
@@ -37,8 +38,46 @@ public class LoginController extends BaseController {
 	@Autowired
 	private ILogin login;
 	private static final Logger logger = LoggerFactory.getLogger("LoginController");
-	
+
 	@RequestMapping("login.do")
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = this.getRequestMap(request);
+		if (map.containsKey("logname") && map.containsKey("logpass")) {
+			String name = (String) map.get("logname");
+			String pass = (String) map.get("logpass");
+			if (!name.equals("")&&!pass.equals("")&&name.equals(pass)) {
+				try {
+					return new ModelAndView("zpl/index");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					/*
+					 * response.setContentType("application/json;charset=utf-8"); //
+					 * 设置客户端ajax跨域请求通过通过 PrintWriter out = response.getWriter();
+					 * String result=JSONUtil.formatJSONObject(map);
+					 * System.out.println(result); out.print(result); return null;
+					 */
+					map.put("message", "提示：账号或密码错误");
+					return new ModelAndView("zpl/login",map);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		map.put("message", "提示：账号或密码不能为空");
+		return new ModelAndView("zpl/login", map);
+	}
+
+	@RequestMapping("index")
+	public ModelAndView goIndex(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("/zpl/index");
+	}
+
+	@RequestMapping("login.do11")
 	public void getLoginInfo(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = login.login("SAD_S0DQ37070517");
 		System.out.println(map.get("TITLE"));
@@ -109,18 +148,18 @@ public class LoginController extends BaseController {
 		model.addAttribute("你好");
 		return return2page(response, msg, "zpl/testview/test");
 	}
-	
-	
+
 	/**
 	 * 这个请求中我们将数据封装成一个list放到了Model中<br>
 	 * 我们在页面中的数据提取为${roleList.get(1).getRoleid()}
+	 * 
 	 * @param response
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("goTest03")
 	public ModelAndView testview03(HttpServletResponse response, Model model) {
-		List<Role> list=new ArrayList<Role>();
+		List<Role> list = new ArrayList<Role>();
 		Role r = new Role();
 		r.setRolecode("ADMIN");
 		r.setRolename("管理者");
@@ -143,10 +182,7 @@ public class LoginController extends BaseController {
 		model.addAttribute("你buhao好");
 		return return2page(response, msg, "zpl/testview/test");
 	}
-	
-	
-	
-	
+
 	@RequestMapping("goftl.do")
 	public String testftl(ModelMap model) {
 		Role r = new Role();
@@ -156,61 +192,62 @@ public class LoginController extends BaseController {
 		model.addAttribute("roles", r);
 		return "testftl";
 	}
-	
+
 	@RequestMapping("goftlList.do")
 	public String testftllist(ModelMap model) {
 		Role r = new Role();
 		r.setRolecode("ADMIN");
 		r.setRolename("管理者");
 		r.setRoleid(UniqueSeq.shortUUID());
-		
+
 		Role r1 = new Role();
 		r1.setRolecode("ADMIN");
 		r1.setRolename("管理者");
 		r1.setRoleid(UniqueSeq.shortUUID());
-		List<Role> list=new ArrayList<Role>();
+		List<Role> list = new ArrayList<Role>();
 		list.add(r);
 		list.add(r1);
-		model.addAttribute("rList", list);//<#list rList as r>
+		model.addAttribute("rList", list);// <#list rList as r>
 		return "testftl";
 	}
-	
-	/*****--------------------------Excel视图-------------------------------------------------*****/
+
+	/*****
+	 * --------------------------Excel视图----------------------------------------
+	 * ---------
+	 *****/
 	@RequestMapping("goExcel.do")
 	public ModelAndView testExcel(Map model) {
 		Role r = new Role();
 		r.setRolecode("ADMIN");
 		r.setRolename("管理者");
 		r.setRoleid(UniqueSeq.shortUUID());
-		
+
 		Role r1 = new Role();
 		r1.setRolecode("ADMIN");
 		r1.setRolename("管理者");
 		r1.setRoleid(UniqueSeq.shortUUID());
-		List<Role> list=new ArrayList<Role>();
+		List<Role> list = new ArrayList<Role>();
 		list.add(r);
 		list.add(r1);
-		model.put("roles", list);//<#list rList as r>
-		return new ModelAndView(new MyExcelView(), model);//返回方式必须这么写，如果不这么写会去找对应的jsp文件
+		model.put("roles", list);// <#list rList as r>
+		return new ModelAndView(new MyExcelView(), model);// 返回方式必须这么写，如果不这么写会去找对应的jsp文件
 	}
-	
-	
-	
+
 	@RequestMapping("goPdf.do")
 	public ModelAndView testPdf(Map model) {
 		Role r = new Role();
 		r.setRolecode("ADMIN");
 		r.setRolename("管理者");
 		r.setRoleid(UniqueSeq.shortUUID());
-		
+
 		Role r1 = new Role();
 		r1.setRolecode("ADMIN");
 		r1.setRolename("管理者");
 		r1.setRoleid(UniqueSeq.shortUUID());
-		List<Role> list=new ArrayList<Role>();
+		List<Role> list = new ArrayList<Role>();
 		list.add(r);
 		list.add(r1);
-		model.put("roles", list);//<#list rList as r>
-		return new ModelAndView("", model);//返回方式必须这么写，如果不这么写会去找对应的jsp文件
+		model.put("roles", list);// <#list rList as r>
+		return new ModelAndView("", model);// 返回方式必须这么写，如果不这么写会去找对应的jsp文件
 	}
 }

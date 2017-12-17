@@ -36,7 +36,7 @@
 	
 	
 	<!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为zpl/index.jsp -->
-	<mvc:view-controller path="/" view-name="zpl/index" />
+	<mvc:view-controller path="/" view-name="zpl/login" />
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView"></property>

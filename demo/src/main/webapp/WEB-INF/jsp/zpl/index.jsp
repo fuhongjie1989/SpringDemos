@@ -189,4 +189,6 @@
 	src="<%=path%>/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="<%=path%>/component/menu/js/custom-menu.js"></script>
+<script type="text/javascript">
+</script>
 </html>
