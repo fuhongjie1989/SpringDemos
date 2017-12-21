@@ -19,6 +19,16 @@
 <link rel="stylesheet" type="text/css"
 	href="<%=path%>/component/menu/css/custom-menu.css" />
 	<link rel="stylesheet" href="<%=path%>/component/menu/css/font-awesome.min.css">
+<script type="text/javascript"
+	src="<%=path%>/component/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/menu/js/custom-menu.js"></script>
+	<script type="text/javascript"
+	src="<%=path%>/component/core/core.js"></script>
+	<script type="text/javascript"
+	src="<%=path%>/component/jsonview/inone.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -140,7 +150,7 @@
 									class="fa-angle-double-right fa"></i> 启动设置
 							</a></li>
 							<li><a href="#"
-								onclick="createTable('接口测试', 'goTestService.do')"> <i
+								onclick="createTable('接口测试', 'goTestPage.do')"> <i
 									class="fa-angle-double-right fa"></i> 接口测试
 							</a></li>
 						</ul></li>
@@ -183,12 +193,4 @@
     </div>
   </div>
 </body>
-<script type="text/javascript"
-	src="<%=path%>/component/jquery/jquery-1.10.2.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/component/menu/js/custom-menu.js"></script>
-<script type="text/javascript">
-</script>
 </html>

@@ -70,8 +70,8 @@ public class Filter01 implements Filter {
 		}
 		((HttpServletRequest)request).getSession().setAttribute("UserAuthority", user);
 		ThreadLocalContext.get().setUser(user);
-		
-	
+		String rqstType = StrUtil.trimStr(request.getParameter("rqstType"));// 请求类型AJAX/MOBILE/空
+		ThreadLocalContext.get().setRequestType(rqstType);
 	}
 
 	@Override

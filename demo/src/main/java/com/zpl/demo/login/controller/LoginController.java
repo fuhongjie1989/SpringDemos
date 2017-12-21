@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
 		if (map.containsKey("logname") && map.containsKey("logpass")) {
 			String name = (String) map.get("logname");
 			String pass = (String) map.get("logpass");
-			if (!name.equals("")&&!pass.equals("")&&name.equals(pass)) {
+			if (name.equals("admin")&&pass.equals("admin")&&name.equals(pass)) {
 				try {
 					return new ModelAndView("zpl/index");
 				} catch (Exception e) {
