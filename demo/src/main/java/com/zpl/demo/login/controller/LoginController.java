@@ -77,6 +77,23 @@ public class LoginController extends BaseController {
 		return new ModelAndView("/zpl/index");
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("login.do11")
 	public void getLoginInfo(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = login.login("SAD_S0DQ37070517");

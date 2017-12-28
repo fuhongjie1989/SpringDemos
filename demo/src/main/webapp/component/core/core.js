@@ -33,3 +33,13 @@ function str2json(strJson) {
 		}
 	}
 }
+
+/**
+ * 填充表格
+ */
+function fillTable(){
+	
+}
+
+
+

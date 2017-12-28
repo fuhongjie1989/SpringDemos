@@ -18,17 +18,16 @@
 	href="<%=path%>/component/bootstrap-3.3.7/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
 	href="<%=path%>/component/menu/css/custom-menu.css" />
-	<link rel="stylesheet" href="<%=path%>/component/menu/css/font-awesome.min.css">
-<script type="text/javascript"
-	src="<%=path%>/component/jquery/jquery-1.10.2.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="<%=path%>/component/menu/js/custom-menu.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/component/menu/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/component/zTree/css/zTreeStyle/zTreeStyle.css" />
+<%-- 	<script type="text/javascript"
+	src="<%=path%>/component/zTree/js/jquery.ztree.core.js"></script>
 	<script type="text/javascript"
-	src="<%=path%>/component/core/core.js"></script>
+	src="<%=path%>/component/zTree/js/jquery.ztree.excheck.js"></script>
 	<script type="text/javascript"
-	src="<%=path%>/component/jsonview/inone.js"></script>
+	src="<%=path%>/component/zTree/js/jquery.ztree.exedit.js"></script> --%>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -43,8 +42,7 @@
 			</button>
 			<div class="navbar-brand dropdown">
 				<a href="#" id="menu-toggler" class="dropdown-toggle"
-					data-toggle="dropdown"> demo<b
-					class="caret"></b> <!-- caret使用插入符表示下拉功能和方向 -->
+					data-toggle="dropdown"> demo<b class="caret"></b> <!-- caret使用插入符表示下拉功能和方向 -->
 				</a>
 			</div>
 
@@ -61,7 +59,8 @@
 							onclick="createTable('查询页面', 'goQueryPage.do')">查询页面</a></li>
 						<li><a href="#"
 							onclick="createTable('用户管理', 'goUserMgmtQueryPage.do')">用户管理</a></li>
-						<li><a href="#">Something else here</a></li>
+						<li><a href="#"
+							onclick="createTable('数据模型','getDataBaseShow.do')">数据模型</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Separated link</a></li>
 						<li class="divider"></li>
@@ -129,13 +128,13 @@
 					%> --%>
 
 					<li><a href="#" class="dropdown-toggle"> <i
-							class="fa fa-desktop">☂</i> <span class="menu-text"> 基础功能 </span>
-							<b class="arrow fa fa-angle-down"></b>
+							class="fa fa-desktop">☂</i> <span class="menu-text"> 基础功能
+						</span> <b class="arrow fa fa-angle-down"></b>
 					</a>
 						<ul class="submenu">
 							<li><a href="#"
-								onclick="createTable('字典维护', 'goSysEnumQuery.do')"> <i
-									class="fa-angle-double-right fa"></i> 字典维护
+								onclick="createTable('数据模型','getDataBaseShow.do')"> <i
+									class="fa-angle-double-right fa"></i> 数据模型
 							</a></li>
 							<li><a href="#"
 								onclick="createTable('常量生成', 'goSysConst.do')"> <i
@@ -184,13 +183,29 @@
 		</div>
 		<div id="sidebar_hidden"
 			style="width: 500px; height: 600px; position: fixed; display: none">&nbsp</div>
-			<!-- 用于指定 sidebar 的空白区域,当点击空白区域时,触发js事件关闭下拉列表-->
+		<!-- 用于指定 sidebar 的空白区域,当点击空白区域时,触发js事件关闭下拉列表-->
 	</div>
 	<!-- 用于显示页面内容 -->
 	<div class="container-fluid">
-    	<div class="tab-content" id="index_Content_List">
-      	<div class="tab-pane active" id="home">home</div>
-    </div>
-  </div>
+		<div class="tab-content" id="index_Content_List">
+			<div class="tab-pane active" id="home">home</div>
+		</div>
+	</div>
 </body>
+<script type="text/javascript"
+	src="<%=path%>/component/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/menu/js/custom-menu.js"></script>
+<script type="text/javascript" src="<%=path%>/component/core/core.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/jsonview/inone.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/zTree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/component/zTree/js/jquery.ztree.exedit.js"></script>
+
 </html>

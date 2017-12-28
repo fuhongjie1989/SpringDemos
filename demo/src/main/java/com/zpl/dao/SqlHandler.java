@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +16,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Component;
 
+import com.zpl.dao.callback.RowMapMetaResult;
 import com.zpl.dao.callback.RowMapResult;
 import com.zpl.logs.LogUtil;
 
@@ -72,6 +77,30 @@ public class SqlHandler {
 		return result.get(0);
 	}
 	/**
+	 * 查询获取表的元信息
+	 * @param info
+	 * @return
+	 */
+	public List<Map<String, Object>> getMetaOfTable(SqlInfo info){
+		String sql=info.getSql();
+		LogUtil.info(sql);
+		List<Map<String, Object>> result=new ArrayList<Map<String, Object>>();
+		SqlRowSet sqlRowSet=jdbcTemplate.queryForRowSet(sql);
+		SqlRowSetMetaData sRSm=sqlRowSet.getMetaData();
+		int columnSize=sRSm.getColumnCount();
+		for(int i=1;i<=columnSize;i++){
+			Map<String, Object> map=new HashMap<String,Object>();
+			map.put("FieldName", sRSm.getColumnName(i));
+			map.put("size", sRSm.getColumnDisplaySize(i));
+			map.put("type", sRSm.getColumnType(i));
+			map.put("label", sRSm.getColumnLabel(i));
+			map.put("precision", sRSm.getPrecision(i));
+			result.add(map);
+		}
+		return result;
+	}
+	
+	/**
 	 * 获取到所有的查询结果
 	 * @param info
 	 * @return
@@ -80,7 +109,13 @@ public class SqlHandler {
 		String sql=info.getSql();
 		LogUtil.info(sql);
 		Object [] param=info.getValues().toArray();
-		List<Map<String, Object>> result=jdbcTemplate.query(sql, param, new RowMapResult());
+		List<Map<String, Object>> result=null;
+		if(param.length==0){
+			result=jdbcTemplate.query(sql, new RowMapResult());
+		}else{
+			result=jdbcTemplate.query(sql, param, new RowMapResult());
+		}
+		
 		if(null==result)
 			return null;
 		return result;
