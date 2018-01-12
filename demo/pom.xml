@@ -12,6 +12,7 @@
 		<project.build.jdk.version>1.7</project.build.jdk.version>
 		<sping.version>4.2.0.RELEASE</sping.version>
 		<jackson.version>2.5.3</jackson.version>
+		<cxf.version>2.6.17</cxf.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -232,6 +233,19 @@
 			<type>pom</type>
 		</dependency> -->
 		<!-- PDF 依赖 -->
+		
+		<!-- webservice依赖框架CXF -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>  
+		<!-- webservice依赖框架CXF -->
 	</dependencies>
 	<build>
 		<finalName>demo</finalName>

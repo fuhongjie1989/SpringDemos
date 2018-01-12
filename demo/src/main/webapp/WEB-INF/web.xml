@@ -16,7 +16,27 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	<!-- cxf服务启动servlet :webservice服务发布-->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/webService/*</url-pattern>
+    </servlet-mapping>
+  <!--  CXF需要通过ContextLoaderListener来加载Spring 
+  		但是SpringMVC需要使用DispatchServlet来加载,
+  		所以这里我们分开来加载这两个配置文件-->
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath*:spring/spring-cxf.xml</param-value>  
+    </context-param>
+     <listener>  
+        <listener-class>  
+            org.springframework.web.context.ContextLoaderListener  
+        </listener-class>  
+    </listener>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
