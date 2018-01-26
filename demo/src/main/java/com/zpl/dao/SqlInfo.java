@@ -49,6 +49,9 @@ public class SqlInfo implements ISqlInfo {
 	}
 
 	public List<Object> getValues() {
+		if (null == values) {
+			values = new ArrayList<Object>();
+		}
 		return values;
 	}
 

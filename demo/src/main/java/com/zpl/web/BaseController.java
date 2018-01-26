@@ -1,5 +1,7 @@
 package com.zpl.web;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zpl.context.ThreadLocalContext;
 import com.zpl.logs.LogUtil;
 import com.zpl.msg.MsgInfo;
 import com.zpl.msg.ReturnMsg;
@@ -36,6 +39,28 @@ public class BaseController {
 		}else{
 			msg=new ReturnMsg();
 			jsonStr=return2json(msg);
+		}
+		String rqstType = ThreadLocalContext.get().getRequestType();
+		if ("AJAX".equals(rqstType)) {
+			try {
+				response.getWriter().write(jsonStr);
+				return null;
+			} catch (IOException e) {
+				LogUtil.error(e.toString());
+			}
+		}
+		if ("MOBILE".equals(rqstType)) {
+			try {
+				response.setContentType("application/json;charset=utf-8");
+				// 设置客户端ajax跨域请求通过通过
+				PrintWriter out = response.getWriter();
+				out.print(jsonStr);
+				out.flush();
+				out.close();
+				return null;
+			} catch (IOException e) {
+				LogUtil.error(e.toString());
+			}
 		}
 		//ModelAndView(视图名，modelname,Object model)
 		LogUtil.info("页面返回参数："+jsonStr);

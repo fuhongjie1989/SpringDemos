@@ -12,6 +12,7 @@
 		<project.build.jdk.version>1.7</project.build.jdk.version>
 		<sping.version>4.2.0.RELEASE</sping.version>
 		<jackson.version>2.5.3</jackson.version>
+		<cxf.version>2.6.17</cxf.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -183,7 +184,7 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<!-- ↑↑json解析 结束↑↑ -->
-		<!--  org.apache.http依赖开始 -->
+		<!-- org.apache.http依赖开始 -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -200,6 +201,51 @@
 			<version>4.4.4</version>
 		</dependency>
 		<!-- org.apache.http依赖结束 -->
+		<!-- FreeMarker依赖 开始 -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+		<!-- FreeMarker依赖 结束 -->
+		<!-- Excel 依赖 -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<!-- Excel 依赖 -->
+		<!-- PDF 依赖 -->
+		<!-- <dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>4.2.2</version>
+			<type>pom</type>
+		</dependency> -->
+		<!-- PDF 依赖 -->
+		
+		<!-- webservice依赖框架CXF -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>  
+		<!-- webservice依赖框架CXF -->
 	</dependencies>
 	<build>
 		<finalName>demo</finalName>

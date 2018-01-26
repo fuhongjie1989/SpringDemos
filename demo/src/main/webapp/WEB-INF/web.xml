@@ -3,9 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="schedule-console" version="3.0">
-	<display-name>Archetype Created Web Application</display-name>
-
-
+	<display-name>SpringMVCDemo</display-name>
 	<!-- spring MVC的核心就是DispatcherServlet，使用springMVC的第一步就是将下面的servlet放入web.xml 
 		servlet-name属性非常重要，默认情况下，DispatchServlet会加载这个名字-servlet.xml的文件，如下，就会加载 dispather-servlet.xml，也是在WEN-INF目录下。 -->
 	<servlet>
@@ -18,7 +16,27 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	<!-- cxf服务启动servlet :webservice服务发布-->
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/webService/*</url-pattern>
+    </servlet-mapping>
+  <!--  CXF需要通过ContextLoaderListener来加载Spring 
+  		但是SpringMVC需要使用DispatchServlet来加载,
+  		所以这里我们分开来加载这两个配置文件-->
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath*:spring/spring-cxf.xml</param-value>  
+    </context-param>
+     <listener>  
+        <listener-class>  
+            org.springframework.web.context.ContextLoaderListener  
+        </listener-class>  
+    </listener>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

@@ -15,21 +15,28 @@
 	<!-- xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" 是dubbo标签引用需要的↑↑↑↑↑↑ -->
 	<!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->
 	<!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->
-	<mvc:resources location="/*.html" mapping="/**.html" />
-	<mvc:resources location="/css/*" mapping="/css/**" />
-	<mvc:resources location="/js/*" mapping="/js/**" />
-	<mvc:resources location="/images/*" mapping="/images/**" />
+	<!-- <mvc:resources location="/*.html" mapping="/**.html" />
+	<mvc:resources location="/css/*" mapping="/css/**" /> -->
 
 	<!-- 添加注解驱动 -->
 	<mvc:annotation-driven />
+	<!-- 静态资源处理 -->
+	<mvc:default-servlet-handler />
 	<!-- 默认扫描的包路径 -->
 	<context:component-scan base-package="com.zpl" />
 	<!--我们需要引入配置文件,通过下面来引入指定文件 <context:property-placeholder>标签提供了一种优雅的外在化参数配置的方式， 
 		不过该标签在Spring配置文件中只能存在一份！！！ -->
 	<context:property-placeholder location="classpath*:config/*.properties" />
 	<!-- mvc:view-controller可以在不需要Controller处理request的情况，转向到设置的View -->
-	<!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为/index.jsp -->
-	<mvc:view-controller path="/" view-name="index" />
+	
+	<!-- ↓↓↓↓Excel 视图解析器 ↓↓↓↓ -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="10"></bean>
+	<!-- ↑↑↑↑Excel 视图解析器 ↑↑↑↑ -->
+	
+	
+	<!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为zpl/index.jsp -->
+	<mvc:view-controller path="/" view-name="zpl/index" />
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView"></property>
@@ -37,8 +44,28 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<!-- 配置URl后缀 -->
 		<property name="suffix" value=".jsp"></property>
+		<property name="order" value="0"></property>
 	</bean>
-
+	<!-- ↓↓↓↓FreeMarker 视图解析器 ↓↓↓↓ -->
+	<bean
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+		p:templateLoaderPath="/WEB-INF/ftl/">
+		<property name="freemarkerSettings">
+			<props>
+				<!-- classic_compatible设置为true当碰到null时直接返回一个空白字符串，false时遇到null会抛出异常 -->
+				<prop key="classic_compatible">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="order" value="5"></property>
+		<!-- 配置ftl路径前缀 -->
+		<property name="suffix" value=".ftl"></property>
+		<property name="contentType" value="text/html;charset=utf-8"></property>
+	</bean>
+	<!-- ↑↑↑↑FreeMarker 视图解析器 ↑↑↑↑ -->
+	
 	<!-- 指定数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">

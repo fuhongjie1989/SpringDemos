@@ -43,7 +43,7 @@ public class Filter01 implements Filter {
 		// 赋值当前请求的唯一标识
 		LogUtil.info("线程[" + Thread.currentThread().getId() + "]=" + ThreadLocalContext.get().getThreadUUID());
 		LogUtil.info("当前请求SessionID=[" + ((HttpServletRequest) request).getSession().getId() + "]");
-		//initThreadLocalUser(request);
+		initThreadLocalUser(request);
 		try {
 			chain.doFilter(request, response);
 		} catch ( Exception e) {
@@ -68,9 +68,10 @@ public class Filter01 implements Filter {
 			user.setId(pk_id);
 			user.setSessionId(((HttpServletRequest)request).getSession().getId());
 		}
+		((HttpServletRequest)request).getSession().setAttribute("UserAuthority", user);
 		ThreadLocalContext.get().setUser(user);
-		
-	
+		String rqstType = StrUtil.trimStr(request.getParameter("rqstType"));// 请求类型AJAX/MOBILE/空
+		ThreadLocalContext.get().setRequestType(rqstType);
 	}
 
 	@Override
