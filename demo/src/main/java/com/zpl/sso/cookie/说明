@@ -1,0 +1,26 @@
+该文件夹下面用的是以cookie来实现SSO单点登录。相对来说这种方式比较简单，但是安全性能比较低。
+比较复杂的我们可以使用CAS方式来进行SSO单点登录(安全性能高，使用了证书的方式)。
+关于单点的文章：http://www.makaidong.com/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E7%89%9B/6042.shtml
+对于Cookie我们还需要相对了解一些东西;
+ 讲解cookie共享与跨域：http://blog.csdn.net/lwwgtm/article/details/8845994
+ 
+ 1、正常的cookie只能在一个应用中共享，即一个cookie只能由创建它的应用获得
+ 
+ 1.可在同一应用服务器内共享方法：设置cookie.setPath("/");
+    本机tomcat/webapp下面有两个应用：cas和webapp_b，
+    1）原来在cas下面设置的cookie，在webapp_b下面获取不到，path默认是产生cookie的应用的路径。
+    2）若在cas下面设置cookie的时候，增加一条cookie.setPath("/");或者cookie.setPath("/webapp_b/");就可以在webapp_b下面获取到cas设置的cookie了。
+    3）此处的参数，是相对于应用服务器存放应用的文件夹的根目录而言的(比如tomcat下面的webapp)，因此cookie.setPath("/");之后，可以在webapp文件夹下的所有应用共享cookie，而cookie.setPath("/webapp_b/");是指cas应用设置的cookie只能在webapp_b应用下的获得，即便是产生这个cookie的cas应用也不可以。
+    4）设置cookie.setPath("/webapp_b/jsp")或者cookie.setPath("/webapp_b/jsp/")的时候，只有在webapp_b/jsp下面可以获得cookie，在webapp_b下面但是在jsp文件夹外的都不能获得cookie。
+    5）设置cookie.setPath("/webapp_b");，是指在webapp_b下面才可以使用cookie，这样就不可以在产生cookie的应用cas下面获取cookie了
+    6）有多条cookie.setPath("XXX");语句的时候，起作用的以最后一条为准。
+    6）设置多个path的方法？？？
+
+2.跨域共享cookie的方法：设置cookie.setDomain(".jszx.com");
+    A机所在的域：home.langchao.com,A有应用cas
+    B机所在的域：jszx.com，B有应用webapp_b
+    1）在cas下面设置cookie的时候，增加cookie.setDomain(".jszx.com");，这样在webapp_b下面就可以取到cookie。
+    2）这个参数必须以“.”开始。
+    3）输入url访问webapp_b的时候，必须输入域名才能解析。比如说在A机器输入：http://lc-bsp.jszx.com:8080/webapp_b,可以获取cas在客户端设置的cookie，而B机器访问本机的应用，输入：http://localhost:8080/webapp_b则不可以获得cookie。
+    4）设置了cookie.setDomain(".jszx.com");，还可以在默认的home.langchao.com下面共享。
+    5）设置多个域的方法？？？
