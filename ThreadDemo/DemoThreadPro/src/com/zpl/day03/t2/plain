@@ -1,0 +1,5 @@
+实验结论：
+注意Object是共享对象（对象=实例）
+	1:A线程先持有Object对象的Lock锁,B线程可以以异步的方式调用Object对象中的非synchronized类型的方法（methodB 没有被synchronized关键字修饰）
+	
+	2:A线程先持有Object对象的Lock锁,B线程如果调用Object对象中synchronized修饰的方法时,需要等待（被阻塞）;等待线程A释放对象锁

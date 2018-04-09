@@ -1,0 +1,11 @@
+
+
+synchronized修饰方法时某些时候存在弊端：如果A线程调用同步方法需要很长时间,那么B就要等很长时间。
+
+这时候我们就可以使用同步代码块来解决
+
+synchronized方法对当前对象进行加锁,而synchronized代码块对某一个对象加锁
+
+-----------------------------------------------------
+1、当一个线程访问Object的一个synchronized(this)同步代码块时。其他线程对同一个Object中所有其他synchronized(this)同步代码块的访问将被阻塞
+	这说明synchronized(this)使用的 "对象监视器"是一个。
